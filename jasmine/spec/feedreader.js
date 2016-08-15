@@ -35,7 +35,7 @@ $(function() {
            for (var i=0; i<allFeeds.length; i++){
          
           expect(allFeeds[i].url).toBeDefined();
-          expect(allFeeds[i].url).not.toBe(0);
+          expect(allFeeds[i].url).not.toBe('');
       }
       });
 
@@ -46,7 +46,7 @@ $(function() {
       it('has a defined name', function(){
         for (var i=0; i<allFeeds.length; i++){
             expect(allFeeds[i].name).toBeDefined();
-            expect(allFeeds[i].name).not.toBe(0);
+            expect(allFeeds[i].name).not.toBe('');
         }
       });
       });
@@ -59,9 +59,10 @@ $(function() {
          */
          describe('The menu', function() {
             it('is hidden by default', function(){
-                expect(document.body.className).toBe("menu-hidden");
-                
-            })
+                expect(document.body.classList).toContain("menu-hidden");
+                //console.log(document.body.classList);
+            });
+           
              //     
          /* TODO: Write a test that ensures the menu changes
           * visibility when the menu icon is clicked. This test
@@ -71,19 +72,14 @@ $(function() {
 
             it('shows when icon is clicked', function(){
                  $(".menu-icon-link").trigger('click');
-                 var newArray = [];
-                 newArray.push(document.body.className);
-                
-                 expect(newArray).not.toBe('menu-hidden');
+                expect(document.body.classList).not.toContain("menu-hidden")
+                //console.log(document.body.classList);
                    
                })
              it('hides when icon is clicked again', function(){
                  $(".menu-icon-link").trigger('click');
-                 var newArray = [];
-                 newArray.push(document.body.className);
-                 
-                 expect(newArray).toContain('menu-hidden');
-
+                 expect(document.body.classList).toContain("menu-hidden");
+             //console.log(document.body.classList);
             })
        
             });
@@ -98,20 +94,24 @@ $(function() {
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
       describe('Initial Entries', function() {
-        // beforeEach(function(done){
-        // done();
-        // });
-        it('should have at least one entry in feed container', function(done){
-             expect(document.body.className).not.toBeNull("feed");
-            done(); 
-           })   
-       });
-        
+        beforeEach(function(done){
+          loadFeed(0, function(){
+            console.log($('.feed').html());
+            done();//signals 'beforeEach' has finished all its asynchronous tasks 
+        });
+       });   
+        it('should have at least one entry in feed container', function(){
+           var entryList= document.querySelectorAll('.feed .entry');
+           //above selects using ('.parent .child') 
+           expect(entryList.length).toBeGreaterThan('0');
+            //console.log(entryList.length);              
+           });                  
+       });    
     /* TODO: Write a new test suite named "New Feed Selection"
-
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-
+         
+         
 }());

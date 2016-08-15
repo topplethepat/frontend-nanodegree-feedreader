@@ -1,6 +1,6 @@
 /* app.js
  *
- * This is our RSS feed reader application. It uses the Google
+ * This is our RSS (Rich Site Summary) feed reader application. It uses the Google
  * Feed Reader API to grab RSS feeds as JSON object we can make
  * use of. It also uses the Handlebars templating library and
  * jQuery.
@@ -128,7 +128,7 @@ $(function() {
     /* When the menu icon is clicked on, we need to toggle a class
      * on the body to perform the hiding/showing of our menu.
      */
-    menuIcon.on('click', function() {
+    menuIcon.on('click', function() { 
         $('body').toggleClass('menu-hidden');
     });
 }());
