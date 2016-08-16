@@ -96,7 +96,7 @@ $(function() {
       describe('Initial Entries', function() {
         beforeEach(function(done){
           loadFeed(0, function(){
-            console.log($('.feed').html());
+           // console.log($('.feed').html());
             done();//signals 'beforeEach' has finished all its asynchronous tasks 
         });
        });   
@@ -112,6 +112,21 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-         
-         
+          describe('New Feed Selection', function() { 
+            beforeEach(function(done){      
+         loadFeed(0, function(){
+            feedOne = $('.feed').html();
+              
+          loadFeed(1, function(){
+            feedTwo = $('.feed').html(); 
+            done();
+           }) 
+        });   
+        });        
+             it('should load new content', function(done){
+                 
+              expect(feedOne.length).not.toEqual(feedTwo.length);
+              done();  
+             })
+      });        
 }());
